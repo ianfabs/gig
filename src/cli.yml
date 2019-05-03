@@ -1,0 +1,15 @@
+name: deno-create
+version: "0.1"
+author: Ian Fabs <ian@fabs.dev>
+about: Rapidly scaffolds deno projects, maybe.
+args:
+        - INPUT: 
+                help: The scaffold.yml file
+                required: true
+                index: 1
+        - git-init:
+                short: i
+                long: git-init
+                takes_value: false
+                help: Tells dreate wether or not to initalize a git repo
+

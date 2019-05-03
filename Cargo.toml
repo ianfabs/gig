@@ -1,0 +1,9 @@
+[package]
+name = "deno-create"
+version = "0.1.0"
+authors = ["Ian Fabs <ianfabs@outlook.com>"]
+edition = "2018"
+
+[dependencies]
+clap = { version = "2.33.0", features=["yaml"]} 
+yaml-rust = "0.4"
