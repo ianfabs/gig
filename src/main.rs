@@ -26,41 +26,6 @@ hello_world:
 ";
     let docs = YamlLoader::load_from_str(default_scaffold).unwrap();
     let doc = &docs[0];
-    
-    //let project = doc["project"].as_str().unwrap();
-    //if let Err(message) = fs::create_dir(format!("./{}", project)) {
-        // This is cool and all, but implementing this well is kinda a hassle. For now, just panic
-        // when something kinda sketchy happens.
-
-        /* match message.kind() {
-            std::io::ErrorKind::AlreadyExists => {
-                println!("Unable to create project dir: A folder by that name already exists"); 
-            },
-            other_error => panic!("An unusual error occured: {}", message),
-        } */
-        //panic!("Oopsie Woopsie! The Fowowing Ewer Okwered uWu: {}", message);
-    //};
-
-    /*
-    if let Some(hash) = &doc["root"].clone().into_hash() {
-        for (key, value) in hash.iter() {
-            // For value.as_str(), you should handle the exception where it's another array of
-            // files, perhaps by moving all of this into a recursive function.
-            // Perhaps use the Yaml.is_array() method? that should do the trick.
-            // let (file_name, content) = (key.as_str().unwrap(), value.as_str().unwrap());
-            let file_name = key.as_str().unwrap();
-            let content = if value.is_array() {
-                
-            }
-            println!("File: {}", file_name);
-            println!("Contents: {}", content);
-            // If file already exists, then ask if they want to overwrite it!
-            if let Err(error) = fs::File::create(file_name) {
-               panic!("An error occured creating that file: {}", error) 
-            };
-            // For now, we'll just fail if another file or folder already exists.
-        }
-    };*/
 
     createDir(doc, doc, String::from("./"));
 
