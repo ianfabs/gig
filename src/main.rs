@@ -27,7 +27,7 @@ hello_world:
     let docs = YamlLoader::load_from_str(default_scaffold).unwrap();
     let doc = &docs[0];
 
-    createDir(doc, doc, String::from("./"));
+    create(doc, doc, String::from("./"));
 
     //Command Line shit 
     //let cli_config = load_yaml!("cli.yml");
@@ -58,7 +58,7 @@ impl IsString for Yaml {
     }
 }
 
-fn createDir(yaml: &Yaml, current_node: &Yaml, dir: String) {
+fn create(yaml: &Yaml, current_node: &Yaml, dir: String) {
     let doc = yaml.clone();
     let node = current_node.clone();
 
@@ -70,7 +70,7 @@ fn createDir(yaml: &Yaml, current_node: &Yaml, dir: String) {
             if val.is_hash() {
                 println!("folder: {}", path);
                 create_dir(&path); 
-                createDir(&doc, &val, format!("{}/", &path));
+                create(&doc, &val, format!("{}/", &path));
             }else {
                 println!("file: {}", &path);
                 if let Ok(mut file) = File::create(&path) {
