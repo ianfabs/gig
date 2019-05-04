@@ -1,0 +1,3 @@
+index.js: "console.log('hello world');"
+examples:
+        egg.txt: "I like big eggs"
