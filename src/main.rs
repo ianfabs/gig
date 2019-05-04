@@ -61,37 +61,7 @@ impl IsString for Yaml {
 fn createDir(yaml: &Yaml, current_node: &Yaml, dir: String) {
     let doc = yaml.clone();
     let node = current_node.clone();
-    // I'll have to handle this eventually, but right now people can just not
-    // though if i did, the array would let you create multiple empty files.
 
-    // if yaml.is_array() {
-    //match &doc.into_hash() {
-    //    Some(hash) => {
-    //        // Loop
-    //        for (key, val) in hash.iter() {
-    //            let name = key.as_str().unwrap();
-    //            //TODO: Here, if the type is Hash, then create dir and call function again
-    //            //Else: Create file
-    //            if val.is_hash() {
-    //                println!("Creating dir {} with contents {:?}", name, val);
-    //                createDir(val);
-    //            } else {
-    //                println!("Creating file {} with contents {:?}", name, val);
-    //                createDir(val);
-    //            }
-    //        }
-    //    },
-    //    None => {
-    //        //Fuckall happens here
-    //        /*
-    //        match yaml.into_string() {
-    //            Some(string) => {
-    //                // Add contents to file here
-    //            }
-    //        }
-    //        */
-    //    }
-    //}
     if let Some(hash) = node.into_hash() {
         for (key, val) in hash.iter() {
             let name = key.as_str().unwrap();
