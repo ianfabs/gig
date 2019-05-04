@@ -6,7 +6,8 @@
  * @author Ian Fabricatore
  * @year 2019
  * */
-use std::fs::{File, create_dir};
+use std::fs::{File, create_dir, self};
+use std::path::Path;
 use std::io::prelude::*;
 
 #[macro_use]
@@ -16,22 +17,53 @@ use clap::App;
 extern crate yaml_rust;
 use yaml_rust::{YamlLoader, Yaml};
 
+extern crate git2;
+use git2::Repository;
+
 fn main() {
-    let default_scaffold = 
-"
-hello_world:
-    index.js: \"console.log('hello world');\"
-    examples:
-        egg.txt: \"dsfsdfsdfsdfsdfsdfsdfsdfsdfsdda\"
-";
-    let docs = YamlLoader::load_from_str(default_scaffold).unwrap();
+    // let default_scaffold = 
+// "
+// hello_world:
+    // index.js: \"console.log('hello world');\"
+    // examples:
+    //     egg.txt: \"dsfsdfsdfsdfsdfsdfsdfsdfsdfsdda\"
+// ";
+
+
+    // Command Line shit 
+    let cli_config = load_yaml!("cli.yml");
+    let matches = App::from_yaml(cli_config).get_matches();
+
+    // println!("{:#?}", matches);
+    let file_path = matches.value_of("SCAFFOLD").unwrap();
+    let project = matches.value_of("PROJECT").unwrap();
+    let mut file = match fs::read_to_string(file_path) {
+        Ok(contents) => contents,
+        Err(error) => {
+            match error.kind() {
+                std::io::ErrorKind::NotFound => {
+                    println!("File {} not found", file_path); 
+                },
+                other_error => panic!("An unusual error occured: {}", error),
+            }
+            std::process::exit(0);
+        }
+    };
+
+    let docs = YamlLoader::load_from_str(&file).unwrap();
     let doc = &docs[0];
 
-    create(doc, doc, String::from("./"));
+    let project_path = format!("{}/", project);
 
-    //Command Line shit 
-    //let cli_config = load_yaml!("cli.yml");
-    //let matches = App::from_yaml(cli_config).get_matches();
+    create(doc, doc, project_path.clone());
+
+    if matches.is_present("git-init") {
+        println!("Creating repo");
+        let repo = match Repository::init(&project_path) {
+            Ok(repo) => repo,
+            Err(e) => panic!("Failed to initalize repo: {}", e),
+        };
+    }
 }
 
 trait IsHash {
@@ -59,6 +91,9 @@ impl IsString for Yaml {
 }
 
 fn create(yaml: &Yaml, current_node: &Yaml, dir: String) {
+    if !Path::new(&dir[..]).exists() {
+        create_dir(&dir); 
+    } 
     let doc = yaml.clone();
     let node = current_node.clone();
 
