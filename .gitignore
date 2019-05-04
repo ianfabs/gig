@@ -1,4 +1,3 @@
 /target
 **/*.rs.bk
 /hello_world
-hello_world
