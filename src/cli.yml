@@ -3,10 +3,16 @@ version: "0.1"
 author: Ian Fabs <ian@fabs.dev>
 about: Rapidly scaffolds deno projects, maybe.
 args:
-        - INPUT: 
+        - SCAFFOLD: 
                 help: The scaffold.yml file
                 required: true
                 index: 1
+                value_name: SCAFFOLD_YAML_FILE
+        - PROJECT:
+                help: The name of the project
+                required: false
+                index: 2
+                #default_value: MyDenosaur
         - git-init:
                 short: i
                 long: git-init
