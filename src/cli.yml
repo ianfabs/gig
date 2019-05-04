@@ -9,13 +9,12 @@ args:
                 index: 1
                 value_name: SCAFFOLD_YAML_FILE
         - PROJECT:
-                help: The name of the project
-                required: false
+                help: The name of the project folder
+                required: true
                 index: 2
                 #default_value: MyDenosaur
         - git-init:
                 short: i
                 long: git-init
                 takes_value: false
-                help: Tells dreate wether or not to initalize a git repo
-
+                help: Tells deno-create wether or not to initalize a git repo
