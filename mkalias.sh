@@ -1,1 +1,1 @@
-alias deno-create='target/debug/deno-create'
+alias deno-create='~/Programming/deno-create/target/debug/deno-create'
