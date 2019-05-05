@@ -1,7 +1,7 @@
-name: deno-create
-version: "0.1"
+name: gig
+version: "0.1.5"
 author: Ian Fabs <ian@fabs.dev>
-about: Rapidly scaffolds deno projects, maybe.
+about: Rapidly scaffolds projects with the power YAML.
 args:
         - SCAFFOLD: 
                 help: The scaffold.yml file

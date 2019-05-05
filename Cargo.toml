@@ -1,6 +1,6 @@
 [package]
-name = "deno-create"
-version = "0.1.0"
+name = "gig"
+version = "0.1.5"
 authors = ["Ian Fabs <ianfabs@outlook.com>"]
 edition = "2018"
 
