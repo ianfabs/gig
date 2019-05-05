@@ -3,6 +3,13 @@ name = "gig"
 version = "0.1.5"
 authors = ["Ian Fabs <ianfabs@outlook.com>"]
 edition = "2018"
+license = "MIT"
+description = "A tool to search files"
+readme = "README.md"
+homepage = "https://github.com/you/grrs"
+repository = "https://github.com/you/grrs"
+keywords = ["cli", "generate", "code", "yaml"]
+categories = ["command-line-utilities", "yaml"]
 
 [dependencies]
 clap = { version = "2.33.0", features=["yaml"]} 
