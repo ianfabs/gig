@@ -69,7 +69,7 @@ dependencies = [
 
 [[package]]
 name = "gig"
-version = "0.2.2"
+version = "0.2.3-alpha.0"
 dependencies = [
  "clap 2.33.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "git2 0.8.0 (registry+https://github.com/rust-lang/crates.io-index)",
