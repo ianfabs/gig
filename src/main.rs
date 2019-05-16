@@ -21,30 +21,20 @@ extern crate git2;
 use git2::Repository;
 
 fn main() {
-    // let default_scaffold = 
-// "
-// hello_world:
-    // index.js: \"console.log('hello world');\"
-    // examples:
-    //     egg.txt: \"dsfsdfsdfsdfsdfsdfsdfsdfsdfsdda\"
-// ";
-
-
     // Command Line shit 
     let cli_config = load_yaml!("cli.yml");
     let matches = App::from_yaml(cli_config).get_matches();
 
-    // println!("{:#?}", matches);
     let file_path = matches.value_of("SCAFFOLD").unwrap();
     let project = matches.value_of("PROJECT").unwrap();
-    let mut file = match fs::read_to_string(file_path) {
+    let file = match fs::read_to_string(file_path) {
         Ok(contents) => contents,
         Err(error) => {
             match error.kind() {
                 std::io::ErrorKind::NotFound => {
                     println!("File {} not found", file_path); 
                 },
-                other_error => panic!("An unusual error occured: {}", error),
+                _ => panic!("An unusual error occured: {}", error),
             }
             std::process::exit(0);
         }
@@ -59,7 +49,7 @@ fn main() {
 
     if matches.is_present("git-init") {
         println!("Creating repo");
-        let repo = match Repository::init(&project_path) {
+        match Repository::init(&project_path) {
             Ok(repo) => repo,
             Err(e) => panic!("Failed to initalize repo: {}", e),
         };
@@ -92,7 +82,10 @@ impl IsString for Yaml {
 
 fn create(yaml: &Yaml, current_node: &Yaml, dir: String) {
     if !Path::new(&dir[..]).exists() {
-        create_dir(&dir); 
+        match create_dir(&dir) {
+            Ok(_) => println!("SAFE"),
+            Err(_) => println!("OOPS"),
+        }; 
     } 
     let doc = yaml.clone();
     let node = current_node.clone();
@@ -103,14 +96,18 @@ fn create(yaml: &Yaml, current_node: &Yaml, dir: String) {
             // I feel like there's a logic issue in this function somewhere...
             let path = format!("{}{}", dir, name);
             if val.is_hash() {
-                println!("folder: {}", path);
-                create_dir(&path); 
+                println!("Folder: {}", path);
+                if let Err(e) = create_dir(&path) {
+                    println!("Error: {}", e)
+                };
                 create(&doc, &val, format!("{}/", &path));
             }else {
-                println!("file: {}", &path);
+                println!("File: {}", &path);
                 if let Ok(mut file) = File::create(&path) {
                     if let Some(string) = val.clone().into_string() {
-                        file.write_all(string.as_bytes()); 
+                        if let Err(e) = file.write_all(string.as_bytes()) {
+                            println!("Error: {}", e);
+                        }; 
                     }
                 };
             }
