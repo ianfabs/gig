@@ -1,6 +1,6 @@
 [package]
 name = "gig"
-version = "0.2.3"
+version = "0.2.4-alpha.0"
 authors = ["Ian Fabs <ianfabs@outlook.com>"]
 edition = "2018"
 license = "MIT"
