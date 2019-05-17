@@ -1,5 +1,5 @@
 name: gig
-version: "0.1.5"
+version: "0.2.5"
 author: Ian Fabs <ian@fabs.dev>
 about: Rapidly scaffolds projects with the power YAML.
 args:
