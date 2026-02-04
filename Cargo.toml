@@ -15,4 +15,4 @@ build = "build.rs"
 [dependencies]
 clap = { version = "2.33.0", features=["yaml"]} 
 yaml-rust = "0.4"
-git2 = "0.8.0"
+git2 = "0.20.4"
